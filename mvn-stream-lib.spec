@@ -4,15 +4,18 @@
 #
 Name     : mvn-stream-lib
 Version  : 2.7.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/addthis/stream-lib/archive/v2.7.0.tar.gz
 Source0  : https://github.com/addthis/stream-lib/archive/v2.7.0.tar.gz
-Source1  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.jar
-Source2  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.pom
+Source1  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.jar
+Source2  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.pom
+Source3  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.jar
+Source4  : https://repo1.maven.org/maven2/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-stream-lib-data = %{version}-%{release}
+Requires: mvn-stream-lib-license = %{version}-%{release}
 
 %description
 ## Description
@@ -31,16 +34,33 @@ Group: Data
 data components for the mvn-stream-lib package.
 
 
+%package license
+Summary: license components for the mvn-stream-lib package.
+Group: Default
+
+%description license
+license components for the mvn-stream-lib package.
+
+
 %prep
+%setup -q -n stream-lib-2.7.0
 
 %build
 
 %install
-mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-stream-lib
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-stream-lib/LICENSE.txt
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.pom
 
 
 %files
@@ -48,5 +68,11 @@ cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/clearspring/analyti
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.jar
+/usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.5.2/stream-2.5.2.pom
 /usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.jar
 /usr/share/java/.m2/repository/com/clearspring/analytics/stream/2.7.0/stream-2.7.0.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-stream-lib/LICENSE.txt
